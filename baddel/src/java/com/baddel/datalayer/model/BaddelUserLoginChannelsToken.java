@@ -3,7 +3,7 @@ package com.baddel.datalayer.model;
 import com.baddel.datalayer.dao.*;
 import java.io.Serializable;
 
-public class BaddelUserLoginChannelsToken implements Serializable {
+public class BaddelUserLoginChannelsToken implements Serializable, DataModel {
 
     private Integer id;
 

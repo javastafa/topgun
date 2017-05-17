@@ -2,7 +2,7 @@ package com.baddel.datalayer.model;
 
 import java.io.Serializable;
 
-public class BaddelIntersets implements Serializable {
+public class BaddelIntersets implements Serializable, DataModel {
 
     private Integer id;
 

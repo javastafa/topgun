@@ -2,7 +2,7 @@ package com.baddel.datalayer.model;
 
 import java.io.Serializable;
 
-public class ApisBlockingTypes implements Serializable {
+public class ApisBlockingTypes implements Serializable, DataModel {
 
     private Integer id;
 

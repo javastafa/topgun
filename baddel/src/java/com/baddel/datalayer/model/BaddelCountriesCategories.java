@@ -3,7 +3,7 @@ package com.baddel.datalayer.model;
 import com.baddel.datalayer.dao.*;
 import java.io.Serializable;
 
-public class BaddelCountriesCategories implements Serializable {
+public class BaddelCountriesCategories implements Serializable, DataModel {
 
     private Integer id;
 

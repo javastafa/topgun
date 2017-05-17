@@ -1,10 +1,8 @@
 package com.baddel.datalayer.base;
 
-import com.baddel.datalayer.robocon.DataAccessManager;
+import com.baddel.datalayer.DataAccessManager;
 import com.baddel.datalayer.model.*;
-import com.robocon.setting.handler.LoggingHandler;
-import java.sql.SQLException;
-import java.sql.Timestamp;
+import com.baddel.setting.handler.LoggingHandler;
 import java.util.List;
 
 public class BaddelLanguageDAOBase {

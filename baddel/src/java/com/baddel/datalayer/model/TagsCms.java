@@ -2,7 +2,7 @@ package com.baddel.datalayer.model;
 
 import java.io.Serializable;
 
-public class TagsCms implements Serializable {
+public class TagsCms implements Serializable, DataModel {
 
     private Integer id;
 

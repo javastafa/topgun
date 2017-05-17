@@ -4,7 +4,7 @@ import com.baddel.datalayer.dao.*;
 import java.sql.Timestamp;
 import java.io.Serializable;
 
-public class AuthUsersActionsLog implements Serializable {
+public class AuthUsersActionsLog implements Serializable, DataModel {
 
     private Integer id;
 

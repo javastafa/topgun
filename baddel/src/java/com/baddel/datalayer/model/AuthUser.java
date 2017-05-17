@@ -3,7 +3,7 @@ package com.baddel.datalayer.model;
 import java.sql.Timestamp;
 import java.io.Serializable;
 
-public class AuthUser implements Serializable {
+public class AuthUser implements Serializable, DataModel {
 
     private Integer id;
 
