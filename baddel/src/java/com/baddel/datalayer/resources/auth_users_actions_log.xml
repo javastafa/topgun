@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="auth_users_actions_log" >
+	<resultMap id="auth_users_actions_logResultMap" class="com.baddel.datalayer.model.AuthUsersActionsLog" >
+		<result column="id" property="id"/> <result column="userID" property="userid"/> <result column="userName" property="username"/> <result column="actionID" property="actionid"/> <result column="actionDate" property="actiondate"/> <result column="description" property="description"/> <result column="ip" property="ip"/> 
+	</resultMap>    
+    <cacheModel  id="auth_users_actions_logCache" type="OSCACHE" >
+		<flushInterval  hours="24"/>
+		<flushOnExecute statement="auth_users_actions_log_insertSelective"/>
+		<flushOnExecute statement="auth_users_actions_log_updateByPrimaryKeySelective"/>
+		<flushOnExecute statement="auth_users_actions_log_deleteByid"/> <flushOnExecute statement="auth_users_actions_log_deleteByuserid"/> <flushOnExecute statement="auth_users_actions_log_deleteByusername"/> <flushOnExecute statement="auth_users_actions_log_deleteByactionid"/> <flushOnExecute statement="auth_users_actions_log_deleteByactiondate"/> <flushOnExecute statement="auth_users_actions_log_deleteBydescription"/> <flushOnExecute statement="auth_users_actions_log_deleteByip"/> 
+		<property name="reference-type" value="SOFT"/>        
+    </cacheModel>
+
+	<select id="auth_users_actions_log_selectByid" resultMap="auth_users_actions_logResultMap" cacheModel="auth_users_actions_logCache"> select * from `baddel`.`auth_users_actions_log` where `baddel`.`auth_users_actions_log`.`id` = #value# </select> <select id="auth_users_actions_log_selectByuserid" resultMap="auth_users_actions_logResultMap" cacheModel="auth_users_actions_logCache"> select * from `baddel`.`auth_users_actions_log` where `baddel`.`auth_users_actions_log`.`userID` = #value# </select> <select id="auth_users_actions_log_selectByusername" resultMap="auth_users_actions_logResultMap" cacheModel="auth_users_actions_logCache"> select * from `baddel`.`auth_users_actions_log` where `baddel`.`auth_users_actions_log`.`userName` like #value# </select> <select id="auth_users_actions_log_selectByactionid" resultMap="auth_users_actions_logResultMap" cacheModel="auth_users_actions_logCache"> select * from `baddel`.`auth_users_actions_log` where `baddel`.`auth_users_actions_log`.`actionID` = #value# </select> <select id="auth_users_actions_log_selectByactiondate" resultMap="auth_users_actions_logResultMap" cacheModel="auth_users_actions_logCache"> select * from `baddel`.`auth_users_actions_log` where `baddel`.`auth_users_actions_log`.`actionDate` = #value# </select> <select id="auth_users_actions_log_selectBydescription" resultMap="auth_users_actions_logResultMap" cacheModel="auth_users_actions_logCache"> select * from `baddel`.`auth_users_actions_log` where `baddel`.`auth_users_actions_log`.`description` like #value# </select> <select id="auth_users_actions_log_selectByip" resultMap="auth_users_actions_logResultMap" cacheModel="auth_users_actions_logCache"> select * from `baddel`.`auth_users_actions_log` where `baddel`.`auth_users_actions_log`.`ip` like #value# </select> 
+	<select id="auth_users_actions_log_max" resultClass="java.lang.Integer" > 
+		select max(`id`) as maxid from `baddel`.`auth_users_actions_log`; 
+	</select>
+	<select id="auth_users_actions_log_count" resultClass="java.lang.Integer" > 
+		select count(*) from `baddel`.`auth_users_actions_log`; 
+	</select>
+	<select id="auth_users_actions_log_selectAll" resultMap="auth_users_actions_logResultMap" cacheModel="auth_users_actions_logCache" > 
+		select * from `baddel`.`auth_users_actions_log` ; 
+	</select>
+
+	<select id="auth_users_actions_log_search" resultMap="auth_users_actions_logResultMap" cacheModel="auth_users_actions_logCache"> 
+	select * from `baddel`.`auth_users_actions_log` where $value$ 
+	</select>
+
+	<delete id="auth_users_actions_log_deleteByid" > delete  from baddel.auth_users_actions_log where `baddel`.`auth_users_actions_log`.`id` = #value# </delete> <delete id="auth_users_actions_log_deleteByuserid" > delete  from baddel.auth_users_actions_log where `baddel`.`auth_users_actions_log`.`userID` = #value# </delete> <delete id="auth_users_actions_log_deleteByusername" > delete  from baddel.auth_users_actions_log where `baddel`.`auth_users_actions_log`.`userName` like #value# </delete> <delete id="auth_users_actions_log_deleteByactionid" > delete  from baddel.auth_users_actions_log where `baddel`.`auth_users_actions_log`.`actionID` = #value# </delete> <delete id="auth_users_actions_log_deleteByactiondate" > delete  from baddel.auth_users_actions_log where `baddel`.`auth_users_actions_log`.`actionDate` = #value# </delete> <delete id="auth_users_actions_log_deleteBydescription" > delete  from baddel.auth_users_actions_log where `baddel`.`auth_users_actions_log`.`description` like #value# </delete> <delete id="auth_users_actions_log_deleteByip" > delete  from baddel.auth_users_actions_log where `baddel`.`auth_users_actions_log`.`ip` like #value# </delete> 
+	<insert id="auth_users_actions_log_insertSelective" parameterClass="com.baddel.datalayer.model.AuthUsersActionsLog" >
+		insert into `baddel`.`auth_users_actions_log` 
+		<dynamic prepend="(" > 
+			 <isNotNull prepend="," property="userid" > `userID` </isNotNull> <isNotNull prepend="," property="username" > `userName` </isNotNull> <isNotNull prepend="," property="actionid" > `actionID` </isNotNull> <isNotNull prepend="," property="actiondate" > `actionDate` </isNotNull> <isNotNull prepend="," property="description" > `description` </isNotNull> <isNotNull prepend="," property="ip" > `ip` </isNotNull>  )
+		</dynamic>
+		values 
+		<dynamic prepend="(" > 
+			 <isNotNull prepend="," property="userid" > #userid# </isNotNull> <isNotNull prepend="," property="username" > #username# </isNotNull> <isNotNull prepend="," property="actionid" > #actionid# </isNotNull> <isNotNull prepend="," property="actiondate" > #actiondate# </isNotNull> <isNotNull prepend="," property="description" > #description# </isNotNull> <isNotNull prepend="," property="ip" > #ip# </isNotNull>  ) 
+		</dynamic> 
+		<selectKey resultClass="java.lang.Integer" keyProperty="id"> 
+		select last_insert_id() as id
+		</selectKey> 
+	</insert>
+	<update id="auth_users_actions_log_updateByPrimaryKeySelective" parameterClass="com.baddel.datalayer.model.AuthUsersActionsLog" > 
+		update `baddel`.`auth_users_actions_log`
+		<dynamic prepend="set" > 
+			  <isNotNull prepend="," property="userid" > `userID` = #userid# </isNotNull> <isNotNull prepend="," property="username" > `userName` = #username# </isNotNull> <isNotNull prepend="," property="actionid" > `actionID` = #actionid# </isNotNull> <isNotNull prepend="," property="actiondate" > `actionDate` = #actiondate# </isNotNull> <isNotNull prepend="," property="description" > `description` = #description# </isNotNull> <isNotNull prepend="," property="ip" > `ip` = #ip# </isNotNull>  
+		</dynamic> 
+		where `baddel`.`auth_users_actions_log`.`id` = #id# 
+		</update> 
+</sqlMap>

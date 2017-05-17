@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="baddel_user_os" >
+	<resultMap id="baddel_user_osResultMap" class="com.baddel.datalayer.model.BaddelUserOs" >
+		<result column="ID" property="id"/> <result column="name" property="name"/> 
+	</resultMap>    
+    <cacheModel  id="baddel_user_osCache" type="OSCACHE" >
+		<flushInterval  hours="24"/>
+		<flushOnExecute statement="baddel_user_os_insertSelective"/>
+		<flushOnExecute statement="baddel_user_os_updateByPrimaryKeySelective"/>
+		<flushOnExecute statement="baddel_user_os_deleteByid"/> <flushOnExecute statement="baddel_user_os_deleteByname"/> 
+		<property name="reference-type" value="SOFT"/>        
+    </cacheModel>
+
+	<select id="baddel_user_os_selectByid" resultMap="baddel_user_osResultMap" cacheModel="baddel_user_osCache"> select * from `baddel`.`baddel_user_os` where `baddel`.`baddel_user_os`.`ID` = #value# </select> <select id="baddel_user_os_selectByname" resultMap="baddel_user_osResultMap" cacheModel="baddel_user_osCache"> select * from `baddel`.`baddel_user_os` where `baddel`.`baddel_user_os`.`name` like #value# </select> 
+	<select id="baddel_user_os_max" resultClass="java.lang.Integer" > 
+		select max(`ID`) as maxid from `baddel`.`baddel_user_os`; 
+	</select>
+	<select id="baddel_user_os_count" resultClass="java.lang.Integer" > 
+		select count(*) from `baddel`.`baddel_user_os`; 
+	</select>
+	<select id="baddel_user_os_selectAll" resultMap="baddel_user_osResultMap" cacheModel="baddel_user_osCache" > 
+		select * from `baddel`.`baddel_user_os` ; 
+	</select>
+
+	<select id="baddel_user_os_search" resultMap="baddel_user_osResultMap" cacheModel="baddel_user_osCache"> 
+	select * from `baddel`.`baddel_user_os` where $value$ 
+	</select>
+
+	<delete id="baddel_user_os_deleteByid" > delete  from baddel.baddel_user_os where `baddel`.`baddel_user_os`.`ID` = #value# </delete> <delete id="baddel_user_os_deleteByname" > delete  from baddel.baddel_user_os where `baddel`.`baddel_user_os`.`name` like #value# </delete> 
+	<insert id="baddel_user_os_insertSelective" parameterClass="com.baddel.datalayer.model.BaddelUserOs" >
+		insert into `baddel`.`baddel_user_os` 
+		<dynamic prepend="(" > 
+			 <isNotNull prepend="," property="name" > `name` </isNotNull>  )
+		</dynamic>
+		values 
+		<dynamic prepend="(" > 
+			 <isNotNull prepend="," property="name" > #name# </isNotNull>  ) 
+		</dynamic> 
+		<selectKey resultClass="java.lang.Integer" keyProperty="id"> 
+		select last_insert_id() as ID
+		</selectKey> 
+	</insert>
+	<update id="baddel_user_os_updateByPrimaryKeySelective" parameterClass="com.baddel.datalayer.model.BaddelUserOs" > 
+		update `baddel`.`baddel_user_os`
+		<dynamic prepend="set" > 
+			  <isNotNull prepend="," property="name" > `name` = #name# </isNotNull>  
+		</dynamic> 
+		where `baddel`.`baddel_user_os`.`ID` = #id# 
+		</update> 
+</sqlMap>

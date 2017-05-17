@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="baddel_channel_pages_users_visits" >
+	<resultMap id="baddel_channel_pages_users_visitsResultMap" class="com.baddel.datalayer.model.BaddelChannelPagesUsersVisits" >
+		<result column="id" property="id"/> <result column="pageID" property="pageid"/> <result column="userID" property="userid"/> <result column="visitTime" property="visittime"/> 
+	</resultMap>    
+    <cacheModel  id="baddel_channel_pages_users_visitsCache" type="OSCACHE" >
+		<flushInterval  hours="24"/>
+		<flushOnExecute statement="baddel_channel_pages_users_visits_insertSelective"/>
+		<flushOnExecute statement="baddel_channel_pages_users_visits_updateByPrimaryKeySelective"/>
+		<flushOnExecute statement="baddel_channel_pages_users_visits_deleteByid"/> <flushOnExecute statement="baddel_channel_pages_users_visits_deleteBypageid"/> <flushOnExecute statement="baddel_channel_pages_users_visits_deleteByuserid"/> <flushOnExecute statement="baddel_channel_pages_users_visits_deleteByvisittime"/> 
+		<property name="reference-type" value="SOFT"/>        
+    </cacheModel>
+
+	<select id="baddel_channel_pages_users_visits_selectByid" resultMap="baddel_channel_pages_users_visitsResultMap" cacheModel="baddel_channel_pages_users_visitsCache"> select * from `baddel`.`baddel_channel_pages_users_visits` where `baddel`.`baddel_channel_pages_users_visits`.`id` = #value# </select> <select id="baddel_channel_pages_users_visits_selectBypageid" resultMap="baddel_channel_pages_users_visitsResultMap" cacheModel="baddel_channel_pages_users_visitsCache"> select * from `baddel`.`baddel_channel_pages_users_visits` where `baddel`.`baddel_channel_pages_users_visits`.`pageID` = #value# </select> <select id="baddel_channel_pages_users_visits_selectByuserid" resultMap="baddel_channel_pages_users_visitsResultMap" cacheModel="baddel_channel_pages_users_visitsCache"> select * from `baddel`.`baddel_channel_pages_users_visits` where `baddel`.`baddel_channel_pages_users_visits`.`userID` = #value# </select> <select id="baddel_channel_pages_users_visits_selectByvisittime" resultMap="baddel_channel_pages_users_visitsResultMap" cacheModel="baddel_channel_pages_users_visitsCache"> select * from `baddel`.`baddel_channel_pages_users_visits` where `baddel`.`baddel_channel_pages_users_visits`.`visitTime` = #value# </select> 
+	<select id="baddel_channel_pages_users_visits_max" resultClass="java.lang.Integer" > 
+		select max(`id`) as maxid from `baddel`.`baddel_channel_pages_users_visits`; 
+	</select>
+	<select id="baddel_channel_pages_users_visits_count" resultClass="java.lang.Integer" > 
+		select count(*) from `baddel`.`baddel_channel_pages_users_visits`; 
+	</select>
+	<select id="baddel_channel_pages_users_visits_selectAll" resultMap="baddel_channel_pages_users_visitsResultMap" cacheModel="baddel_channel_pages_users_visitsCache" > 
+		select * from `baddel`.`baddel_channel_pages_users_visits` ; 
+	</select>
+
+	<select id="baddel_channel_pages_users_visits_search" resultMap="baddel_channel_pages_users_visitsResultMap" cacheModel="baddel_channel_pages_users_visitsCache"> 
+	select * from `baddel`.`baddel_channel_pages_users_visits` where $value$ 
+	</select>
+
+	<delete id="baddel_channel_pages_users_visits_deleteByid" > delete  from baddel.baddel_channel_pages_users_visits where `baddel`.`baddel_channel_pages_users_visits`.`id` = #value# </delete> <delete id="baddel_channel_pages_users_visits_deleteBypageid" > delete  from baddel.baddel_channel_pages_users_visits where `baddel`.`baddel_channel_pages_users_visits`.`pageID` = #value# </delete> <delete id="baddel_channel_pages_users_visits_deleteByuserid" > delete  from baddel.baddel_channel_pages_users_visits where `baddel`.`baddel_channel_pages_users_visits`.`userID` = #value# </delete> <delete id="baddel_channel_pages_users_visits_deleteByvisittime" > delete  from baddel.baddel_channel_pages_users_visits where `baddel`.`baddel_channel_pages_users_visits`.`visitTime` = #value# </delete> 
+	<insert id="baddel_channel_pages_users_visits_insertSelective" parameterClass="com.baddel.datalayer.model.BaddelChannelPagesUsersVisits" >
+		insert into `baddel`.`baddel_channel_pages_users_visits` 
+		<dynamic prepend="(" > 
+			 <isNotNull prepend="," property="pageid" > `pageID` </isNotNull> <isNotNull prepend="," property="userid" > `userID` </isNotNull> <isNotNull prepend="," property="visittime" > `visitTime` </isNotNull>  )
+		</dynamic>
+		values 
+		<dynamic prepend="(" > 
+			 <isNotNull prepend="," property="pageid" > #pageid# </isNotNull> <isNotNull prepend="," property="userid" > #userid# </isNotNull> <isNotNull prepend="," property="visittime" > #visittime# </isNotNull>  ) 
+		</dynamic> 
+		<selectKey resultClass="java.lang.Integer" keyProperty="id"> 
+		select last_insert_id() as id
+		</selectKey> 
+	</insert>
+	<update id="baddel_channel_pages_users_visits_updateByPrimaryKeySelective" parameterClass="com.baddel.datalayer.model.BaddelChannelPagesUsersVisits" > 
+		update `baddel`.`baddel_channel_pages_users_visits`
+		<dynamic prepend="set" > 
+			  <isNotNull prepend="," property="pageid" > `pageID` = #pageid# </isNotNull> <isNotNull prepend="," property="userid" > `userID` = #userid# </isNotNull> <isNotNull prepend="," property="visittime" > `visitTime` = #visittime# </isNotNull>  
+		</dynamic> 
+		where `baddel`.`baddel_channel_pages_users_visits`.`id` = #id# 
+		</update> 
+</sqlMap>

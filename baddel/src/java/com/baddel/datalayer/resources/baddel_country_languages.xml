@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="baddel_country_languages" >
+	<resultMap id="baddel_country_languagesResultMap" class="com.baddel.datalayer.model.BaddelCountryLanguages" >
+		<result column="ID" property="id"/> <result column="countryID" property="countryid"/> <result column="languageID" property="languageid"/> 
+	</resultMap>    
+    <cacheModel  id="baddel_country_languagesCache" type="OSCACHE" >
+		<flushInterval  hours="24"/>
+		<flushOnExecute statement="baddel_country_languages_insertSelective"/>
+		<flushOnExecute statement="baddel_country_languages_updateByPrimaryKeySelective"/>
+		<flushOnExecute statement="baddel_country_languages_deleteByid"/> <flushOnExecute statement="baddel_country_languages_deleteBycountryid"/> <flushOnExecute statement="baddel_country_languages_deleteBylanguageid"/> 
+		<property name="reference-type" value="SOFT"/>        
+    </cacheModel>
+
+	<select id="baddel_country_languages_selectByid" resultMap="baddel_country_languagesResultMap" cacheModel="baddel_country_languagesCache"> select * from `baddel`.`baddel_country_languages` where `baddel`.`baddel_country_languages`.`ID` = #value# </select> <select id="baddel_country_languages_selectBycountryid" resultMap="baddel_country_languagesResultMap" cacheModel="baddel_country_languagesCache"> select * from `baddel`.`baddel_country_languages` where `baddel`.`baddel_country_languages`.`countryID` = #value# </select> <select id="baddel_country_languages_selectBylanguageid" resultMap="baddel_country_languagesResultMap" cacheModel="baddel_country_languagesCache"> select * from `baddel`.`baddel_country_languages` where `baddel`.`baddel_country_languages`.`languageID` = #value# </select> 
+	<select id="baddel_country_languages_max" resultClass="java.lang.Integer" > 
+		select max(`ID`) as maxid from `baddel`.`baddel_country_languages`; 
+	</select>
+	<select id="baddel_country_languages_count" resultClass="java.lang.Integer" > 
+		select count(*) from `baddel`.`baddel_country_languages`; 
+	</select>
+	<select id="baddel_country_languages_selectAll" resultMap="baddel_country_languagesResultMap" cacheModel="baddel_country_languagesCache" > 
+		select * from `baddel`.`baddel_country_languages` ; 
+	</select>
+
+	<select id="baddel_country_languages_search" resultMap="baddel_country_languagesResultMap" cacheModel="baddel_country_languagesCache"> 
+	select * from `baddel`.`baddel_country_languages` where $value$ 
+	</select>
+
+	<delete id="baddel_country_languages_deleteByid" > delete  from baddel.baddel_country_languages where `baddel`.`baddel_country_languages`.`ID` = #value# </delete> <delete id="baddel_country_languages_deleteBycountryid" > delete  from baddel.baddel_country_languages where `baddel`.`baddel_country_languages`.`countryID` = #value# </delete> <delete id="baddel_country_languages_deleteBylanguageid" > delete  from baddel.baddel_country_languages where `baddel`.`baddel_country_languages`.`languageID` = #value# </delete> 
+	<insert id="baddel_country_languages_insertSelective" parameterClass="com.baddel.datalayer.model.BaddelCountryLanguages" >
+		insert into `baddel`.`baddel_country_languages` 
+		<dynamic prepend="(" > 
+			 <isNotNull prepend="," property="countryid" > `countryID` </isNotNull> <isNotNull prepend="," property="languageid" > `languageID` </isNotNull>  )
+		</dynamic>
+		values 
+		<dynamic prepend="(" > 
+			 <isNotNull prepend="," property="countryid" > #countryid# </isNotNull> <isNotNull prepend="," property="languageid" > #languageid# </isNotNull>  ) 
+		</dynamic> 
+		<selectKey resultClass="java.lang.Integer" keyProperty="id"> 
+		select last_insert_id() as ID
+		</selectKey> 
+	</insert>
+	<update id="baddel_country_languages_updateByPrimaryKeySelective" parameterClass="com.baddel.datalayer.model.BaddelCountryLanguages" > 
+		update `baddel`.`baddel_country_languages`
+		<dynamic prepend="set" > 
+			  <isNotNull prepend="," property="countryid" > `countryID` = #countryid# </isNotNull> <isNotNull prepend="," property="languageid" > `languageID` = #languageid# </isNotNull>  
+		</dynamic> 
+		where `baddel`.`baddel_country_languages`.`ID` = #id# 
+		</update> 
+</sqlMap>

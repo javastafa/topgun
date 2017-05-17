@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="auth_users_actions" >
+	<resultMap id="auth_users_actionsResultMap" class="com.baddel.datalayer.model.AuthUsersActions" >
+		<result column="id" property="id"/> <result column="actionName" property="actionname"/> <result column="description" property="description"/> 
+	</resultMap>    
+    <cacheModel  id="auth_users_actionsCache" type="OSCACHE" >
+		<flushInterval  hours="24"/>
+		<flushOnExecute statement="auth_users_actions_insertSelective"/>
+		<flushOnExecute statement="auth_users_actions_updateByPrimaryKeySelective"/>
+		<flushOnExecute statement="auth_users_actions_deleteByid"/> <flushOnExecute statement="auth_users_actions_deleteByactionname"/> <flushOnExecute statement="auth_users_actions_deleteBydescription"/> 
+		<property name="reference-type" value="SOFT"/>        
+    </cacheModel>
+
+	<select id="auth_users_actions_selectByid" resultMap="auth_users_actionsResultMap" cacheModel="auth_users_actionsCache"> select * from `baddel`.`auth_users_actions` where `baddel`.`auth_users_actions`.`id` = #value# </select> <select id="auth_users_actions_selectByactionname" resultMap="auth_users_actionsResultMap" cacheModel="auth_users_actionsCache"> select * from `baddel`.`auth_users_actions` where `baddel`.`auth_users_actions`.`actionName` like #value# </select> <select id="auth_users_actions_selectBydescription" resultMap="auth_users_actionsResultMap" cacheModel="auth_users_actionsCache"> select * from `baddel`.`auth_users_actions` where `baddel`.`auth_users_actions`.`description` like #value# </select> 
+	<select id="auth_users_actions_max" resultClass="java.lang.Integer" > 
+		select max(`id`) as maxid from `baddel`.`auth_users_actions`; 
+	</select>
+	<select id="auth_users_actions_count" resultClass="java.lang.Integer" > 
+		select count(*) from `baddel`.`auth_users_actions`; 
+	</select>
+	<select id="auth_users_actions_selectAll" resultMap="auth_users_actionsResultMap" cacheModel="auth_users_actionsCache" > 
+		select * from `baddel`.`auth_users_actions` ; 
+	</select>
+
+	<select id="auth_users_actions_search" resultMap="auth_users_actionsResultMap" cacheModel="auth_users_actionsCache"> 
+	select * from `baddel`.`auth_users_actions` where $value$ 
+	</select>
+
+	<delete id="auth_users_actions_deleteByid" > delete  from baddel.auth_users_actions where `baddel`.`auth_users_actions`.`id` = #value# </delete> <delete id="auth_users_actions_deleteByactionname" > delete  from baddel.auth_users_actions where `baddel`.`auth_users_actions`.`actionName` like #value# </delete> <delete id="auth_users_actions_deleteBydescription" > delete  from baddel.auth_users_actions where `baddel`.`auth_users_actions`.`description` like #value# </delete> 
+	<insert id="auth_users_actions_insertSelective" parameterClass="com.baddel.datalayer.model.AuthUsersActions" >
+		insert into `baddel`.`auth_users_actions` 
+		<dynamic prepend="(" > 
+			 <isNotNull prepend="," property="actionname" > `actionName` </isNotNull> <isNotNull prepend="," property="description" > `description` </isNotNull>  )
+		</dynamic>
+		values 
+		<dynamic prepend="(" > 
+			 <isNotNull prepend="," property="actionname" > #actionname# </isNotNull> <isNotNull prepend="," property="description" > #description# </isNotNull>  ) 
+		</dynamic> 
+		<selectKey resultClass="java.lang.Integer" keyProperty="id"> 
+		select last_insert_id() as id
+		</selectKey> 
+	</insert>
+	<update id="auth_users_actions_updateByPrimaryKeySelective" parameterClass="com.baddel.datalayer.model.AuthUsersActions" > 
+		update `baddel`.`auth_users_actions`
+		<dynamic prepend="set" > 
+			  <isNotNull prepend="," property="actionname" > `actionName` = #actionname# </isNotNull> <isNotNull prepend="," property="description" > `description` = #description# </isNotNull>  
+		</dynamic> 
+		where `baddel`.`auth_users_actions`.`id` = #id# 
+		</update> 
+</sqlMap>

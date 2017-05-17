@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="tags_settings" >
+	<resultMap id="tags_settingsResultMap" class="com.baddel.datalayer.model.TagsSettings" >
+		<result column="id" property="id"/> <result column="itemType" property="itemtype"/> <result column="tagName" property="tagname"/> <result column="isCmsTagged" property="iscmstagged"/> <result column="isPortalTagged" property="isportaltagged"/> 
+	</resultMap>    
+    <cacheModel  id="tags_settingsCache" type="OSCACHE" >
+		<flushInterval  hours="24"/>
+		<flushOnExecute statement="tags_settings_insertSelective"/>
+		<flushOnExecute statement="tags_settings_updateByPrimaryKeySelective"/>
+		<flushOnExecute statement="tags_settings_deleteByid"/> <flushOnExecute statement="tags_settings_deleteByitemtype"/> <flushOnExecute statement="tags_settings_deleteBytagname"/> <flushOnExecute statement="tags_settings_deleteByiscmstagged"/> <flushOnExecute statement="tags_settings_deleteByisportaltagged"/> 
+		<property name="reference-type" value="SOFT"/>        
+    </cacheModel>
+
+	<select id="tags_settings_selectByid" resultMap="tags_settingsResultMap" cacheModel="tags_settingsCache"> select * from `baddel`.`tags_settings` where `baddel`.`tags_settings`.`id` = #value# </select> <select id="tags_settings_selectByitemtype" resultMap="tags_settingsResultMap" cacheModel="tags_settingsCache"> select * from `baddel`.`tags_settings` where `baddel`.`tags_settings`.`itemType` = #value# </select> <select id="tags_settings_selectBytagname" resultMap="tags_settingsResultMap" cacheModel="tags_settingsCache"> select * from `baddel`.`tags_settings` where `baddel`.`tags_settings`.`tagName` like #value# </select> <select id="tags_settings_selectByiscmstagged" resultMap="tags_settingsResultMap" cacheModel="tags_settingsCache"> select * from `baddel`.`tags_settings` where `baddel`.`tags_settings`.`isCmsTagged` = #value# </select> <select id="tags_settings_selectByisportaltagged" resultMap="tags_settingsResultMap" cacheModel="tags_settingsCache"> select * from `baddel`.`tags_settings` where `baddel`.`tags_settings`.`isPortalTagged` = #value# </select> 
+	<select id="tags_settings_max" resultClass="java.lang.Integer" > 
+		select max(`id`) as maxid from `baddel`.`tags_settings`; 
+	</select>
+	<select id="tags_settings_count" resultClass="java.lang.Integer" > 
+		select count(*) from `baddel`.`tags_settings`; 
+	</select>
+	<select id="tags_settings_selectAll" resultMap="tags_settingsResultMap" cacheModel="tags_settingsCache" > 
+		select * from `baddel`.`tags_settings` ; 
+	</select>
+
+	<select id="tags_settings_search" resultMap="tags_settingsResultMap" cacheModel="tags_settingsCache"> 
+	select * from `baddel`.`tags_settings` where $value$ 
+	</select>
+
+	<delete id="tags_settings_deleteByid" > delete  from baddel.tags_settings where `baddel`.`tags_settings`.`id` = #value# </delete> <delete id="tags_settings_deleteByitemtype" > delete  from baddel.tags_settings where `baddel`.`tags_settings`.`itemType` = #value# </delete> <delete id="tags_settings_deleteBytagname" > delete  from baddel.tags_settings where `baddel`.`tags_settings`.`tagName` like #value# </delete> <delete id="tags_settings_deleteByiscmstagged" > delete  from baddel.tags_settings where `baddel`.`tags_settings`.`isCmsTagged` = #value# </delete> <delete id="tags_settings_deleteByisportaltagged" > delete  from baddel.tags_settings where `baddel`.`tags_settings`.`isPortalTagged` = #value# </delete> 
+	<insert id="tags_settings_insertSelective" parameterClass="com.baddel.datalayer.model.TagsSettings" >
+		insert into `baddel`.`tags_settings` 
+		<dynamic prepend="(" > 
+			 <isNotNull prepend="," property="itemtype" > `itemType` </isNotNull> <isNotNull prepend="," property="tagname" > `tagName` </isNotNull> <isNotNull prepend="," property="iscmstagged" > `isCmsTagged` </isNotNull> <isNotNull prepend="," property="isportaltagged" > `isPortalTagged` </isNotNull>  )
+		</dynamic>
+		values 
+		<dynamic prepend="(" > 
+			 <isNotNull prepend="," property="itemtype" > #itemtype# </isNotNull> <isNotNull prepend="," property="tagname" > #tagname# </isNotNull> <isNotNull prepend="," property="iscmstagged" > #iscmstagged# </isNotNull> <isNotNull prepend="," property="isportaltagged" > #isportaltagged# </isNotNull>  ) 
+		</dynamic> 
+		<selectKey resultClass="java.lang.Integer" keyProperty="id"> 
+		select last_insert_id() as id
+		</selectKey> 
+	</insert>
+	<update id="tags_settings_updateByPrimaryKeySelective" parameterClass="com.baddel.datalayer.model.TagsSettings" > 
+		update `baddel`.`tags_settings`
+		<dynamic prepend="set" > 
+			  <isNotNull prepend="," property="itemtype" > `itemType` = #itemtype# </isNotNull> <isNotNull prepend="," property="tagname" > `tagName` = #tagname# </isNotNull> <isNotNull prepend="," property="iscmstagged" > `isCmsTagged` = #iscmstagged# </isNotNull> <isNotNull prepend="," property="isportaltagged" > `isPortalTagged` = #isportaltagged# </isNotNull>  
+		</dynamic> 
+		where `baddel`.`tags_settings`.`id` = #id# 
+		</update> 
+</sqlMap>

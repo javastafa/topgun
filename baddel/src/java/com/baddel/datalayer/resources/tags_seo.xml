@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="tags_seo" >
+	<resultMap id="tags_seoResultMap" class="com.baddel.datalayer.model.TagsSeo" >
+		<result column="id" property="id"/> <result column="tagtype" property="tagtype"/> <result column="tagvalue" property="tagvalue"/> 
+	</resultMap>    
+    <cacheModel  id="tags_seoCache" type="OSCACHE" >
+		<flushInterval  hours="24"/>
+		<flushOnExecute statement="tags_seo_insertSelective"/>
+		<flushOnExecute statement="tags_seo_updateByPrimaryKeySelective"/>
+		<flushOnExecute statement="tags_seo_deleteByid"/> <flushOnExecute statement="tags_seo_deleteBytagtype"/> <flushOnExecute statement="tags_seo_deleteBytagvalue"/> 
+		<property name="reference-type" value="SOFT"/>        
+    </cacheModel>
+
+	<select id="tags_seo_selectByid" resultMap="tags_seoResultMap" cacheModel="tags_seoCache"> select * from `baddel`.`tags_seo` where `baddel`.`tags_seo`.`id` = #value# </select> <select id="tags_seo_selectBytagtype" resultMap="tags_seoResultMap" cacheModel="tags_seoCache"> select * from `baddel`.`tags_seo` where `baddel`.`tags_seo`.`tagtype` like #value# </select> <select id="tags_seo_selectBytagvalue" resultMap="tags_seoResultMap" cacheModel="tags_seoCache"> select * from `baddel`.`tags_seo` where `baddel`.`tags_seo`.`tagvalue` like #value# </select> 
+	<select id="tags_seo_max" resultClass="java.lang.Integer" > 
+		select max(`id`) as maxid from `baddel`.`tags_seo`; 
+	</select>
+	<select id="tags_seo_count" resultClass="java.lang.Integer" > 
+		select count(*) from `baddel`.`tags_seo`; 
+	</select>
+	<select id="tags_seo_selectAll" resultMap="tags_seoResultMap" cacheModel="tags_seoCache" > 
+		select * from `baddel`.`tags_seo` ; 
+	</select>
+
+	<select id="tags_seo_search" resultMap="tags_seoResultMap" cacheModel="tags_seoCache"> 
+	select * from `baddel`.`tags_seo` where $value$ 
+	</select>
+
+	<delete id="tags_seo_deleteByid" > delete  from baddel.tags_seo where `baddel`.`tags_seo`.`id` = #value# </delete> <delete id="tags_seo_deleteBytagtype" > delete  from baddel.tags_seo where `baddel`.`tags_seo`.`tagtype` like #value# </delete> <delete id="tags_seo_deleteBytagvalue" > delete  from baddel.tags_seo where `baddel`.`tags_seo`.`tagvalue` like #value# </delete> 
+	<insert id="tags_seo_insertSelective" parameterClass="com.baddel.datalayer.model.TagsSeo" >
+		insert into `baddel`.`tags_seo` 
+		<dynamic prepend="(" > 
+			 <isNotNull prepend="," property="tagtype" > `tagtype` </isNotNull> <isNotNull prepend="," property="tagvalue" > `tagvalue` </isNotNull>  )
+		</dynamic>
+		values 
+		<dynamic prepend="(" > 
+			 <isNotNull prepend="," property="tagtype" > #tagtype# </isNotNull> <isNotNull prepend="," property="tagvalue" > #tagvalue# </isNotNull>  ) 
+		</dynamic> 
+		<selectKey resultClass="java.lang.Integer" keyProperty="id"> 
+		select last_insert_id() as id
+		</selectKey> 
+	</insert>
+	<update id="tags_seo_updateByPrimaryKeySelective" parameterClass="com.baddel.datalayer.model.TagsSeo" > 
+		update `baddel`.`tags_seo`
+		<dynamic prepend="set" > 
+			  <isNotNull prepend="," property="tagtype" > `tagtype` = #tagtype# </isNotNull> <isNotNull prepend="," property="tagvalue" > `tagvalue` = #tagvalue# </isNotNull>  
+		</dynamic> 
+		where `baddel`.`tags_seo`.`id` = #id# 
+		</update> 
+</sqlMap>

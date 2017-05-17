@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="apis_blackedlisted_ips" >
+	<resultMap id="apis_blackedlisted_ipsResultMap" class="com.baddel.datalayer.model.ApisBlackedlistedIps" >
+		<result column="ID" property="id"/> <result column="ip" property="ip"/> <result column="blockingType" property="blockingtype"/> <result column="blockingReason" property="blockingreason"/> <result column="created" property="created"/> <result column="updated" property="updated"/> 
+	</resultMap>    
+    <cacheModel  id="apis_blackedlisted_ipsCache" type="OSCACHE" >
+		<flushInterval  hours="24"/>
+		<flushOnExecute statement="apis_blackedlisted_ips_insertSelective"/>
+		<flushOnExecute statement="apis_blackedlisted_ips_updateByPrimaryKeySelective"/>
+		<flushOnExecute statement="apis_blackedlisted_ips_deleteByid"/> <flushOnExecute statement="apis_blackedlisted_ips_deleteByip"/> <flushOnExecute statement="apis_blackedlisted_ips_deleteByblockingtype"/> <flushOnExecute statement="apis_blackedlisted_ips_deleteByblockingreason"/> <flushOnExecute statement="apis_blackedlisted_ips_deleteBycreated"/> <flushOnExecute statement="apis_blackedlisted_ips_deleteByupdated"/> 
+		<property name="reference-type" value="SOFT"/>        
+    </cacheModel>
+
+	<select id="apis_blackedlisted_ips_selectByid" resultMap="apis_blackedlisted_ipsResultMap" cacheModel="apis_blackedlisted_ipsCache"> select * from `baddel`.`apis_blackedlisted_ips` where `baddel`.`apis_blackedlisted_ips`.`ID` = #value# </select> <select id="apis_blackedlisted_ips_selectByip" resultMap="apis_blackedlisted_ipsResultMap" cacheModel="apis_blackedlisted_ipsCache"> select * from `baddel`.`apis_blackedlisted_ips` where `baddel`.`apis_blackedlisted_ips`.`ip` like #value# </select> <select id="apis_blackedlisted_ips_selectByblockingtype" resultMap="apis_blackedlisted_ipsResultMap" cacheModel="apis_blackedlisted_ipsCache"> select * from `baddel`.`apis_blackedlisted_ips` where `baddel`.`apis_blackedlisted_ips`.`blockingType` = #value# </select> <select id="apis_blackedlisted_ips_selectByblockingreason" resultMap="apis_blackedlisted_ipsResultMap" cacheModel="apis_blackedlisted_ipsCache"> select * from `baddel`.`apis_blackedlisted_ips` where `baddel`.`apis_blackedlisted_ips`.`blockingReason` like #value# </select> <select id="apis_blackedlisted_ips_selectBycreated" resultMap="apis_blackedlisted_ipsResultMap" cacheModel="apis_blackedlisted_ipsCache"> select * from `baddel`.`apis_blackedlisted_ips` where `baddel`.`apis_blackedlisted_ips`.`created` = #value# </select> <select id="apis_blackedlisted_ips_selectByupdated" resultMap="apis_blackedlisted_ipsResultMap" cacheModel="apis_blackedlisted_ipsCache"> select * from `baddel`.`apis_blackedlisted_ips` where `baddel`.`apis_blackedlisted_ips`.`updated` = #value# </select> 
+	<select id="apis_blackedlisted_ips_max" resultClass="java.lang.Integer" > 
+		select max(`ID`) as maxid from `baddel`.`apis_blackedlisted_ips`; 
+	</select>
+	<select id="apis_blackedlisted_ips_count" resultClass="java.lang.Integer" > 
+		select count(*) from `baddel`.`apis_blackedlisted_ips`; 
+	</select>
+	<select id="apis_blackedlisted_ips_selectAll" resultMap="apis_blackedlisted_ipsResultMap" cacheModel="apis_blackedlisted_ipsCache" > 
+		select * from `baddel`.`apis_blackedlisted_ips` ; 
+	</select>
+
+	<select id="apis_blackedlisted_ips_search" resultMap="apis_blackedlisted_ipsResultMap" cacheModel="apis_blackedlisted_ipsCache"> 
+	select * from `baddel`.`apis_blackedlisted_ips` where $value$ 
+	</select>
+
+	<delete id="apis_blackedlisted_ips_deleteByid" > delete  from baddel.apis_blackedlisted_ips where `baddel`.`apis_blackedlisted_ips`.`ID` = #value# </delete> <delete id="apis_blackedlisted_ips_deleteByip" > delete  from baddel.apis_blackedlisted_ips where `baddel`.`apis_blackedlisted_ips`.`ip` like #value# </delete> <delete id="apis_blackedlisted_ips_deleteByblockingtype" > delete  from baddel.apis_blackedlisted_ips where `baddel`.`apis_blackedlisted_ips`.`blockingType` = #value# </delete> <delete id="apis_blackedlisted_ips_deleteByblockingreason" > delete  from baddel.apis_blackedlisted_ips where `baddel`.`apis_blackedlisted_ips`.`blockingReason` like #value# </delete> <delete id="apis_blackedlisted_ips_deleteBycreated" > delete  from baddel.apis_blackedlisted_ips where `baddel`.`apis_blackedlisted_ips`.`created` = #value# </delete> <delete id="apis_blackedlisted_ips_deleteByupdated" > delete  from baddel.apis_blackedlisted_ips where `baddel`.`apis_blackedlisted_ips`.`updated` = #value# </delete> 
+	<insert id="apis_blackedlisted_ips_insertSelective" parameterClass="com.baddel.datalayer.model.ApisBlackedlistedIps" >
+		insert into `baddel`.`apis_blackedlisted_ips` 
+		<dynamic prepend="(" > 
+			 <isNotNull prepend="," property="ip" > `ip` </isNotNull> <isNotNull prepend="," property="blockingtype" > `blockingType` </isNotNull> <isNotNull prepend="," property="blockingreason" > `blockingReason` </isNotNull> <isNotNull prepend="," property="created" > `created` </isNotNull> <isNotNull prepend="," property="updated" > `updated` </isNotNull>  )
+		</dynamic>
+		values 
+		<dynamic prepend="(" > 
+			 <isNotNull prepend="," property="ip" > #ip# </isNotNull> <isNotNull prepend="," property="blockingtype" > #blockingtype# </isNotNull> <isNotNull prepend="," property="blockingreason" > #blockingreason# </isNotNull> <isNotNull prepend="," property="created" > #created# </isNotNull> <isNotNull prepend="," property="updated" > #updated# </isNotNull>  ) 
+		</dynamic> 
+		<selectKey resultClass="java.lang.Integer" keyProperty="id"> 
+		select last_insert_id() as ID
+		</selectKey> 
+	</insert>
+	<update id="apis_blackedlisted_ips_updateByPrimaryKeySelective" parameterClass="com.baddel.datalayer.model.ApisBlackedlistedIps" > 
+		update `baddel`.`apis_blackedlisted_ips`
+		<dynamic prepend="set" > 
+			  <isNotNull prepend="," property="ip" > `ip` = #ip# </isNotNull> <isNotNull prepend="," property="blockingtype" > `blockingType` = #blockingtype# </isNotNull> <isNotNull prepend="," property="blockingreason" > `blockingReason` = #blockingreason# </isNotNull> <isNotNull prepend="," property="created" > `created` = #created# </isNotNull> <isNotNull prepend="," property="updated" > `updated` = #updated# </isNotNull>  
+		</dynamic> 
+		where `baddel`.`apis_blackedlisted_ips`.`ID` = #id# 
+		</update> 
+</sqlMap>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="apis_auth" >
+	<resultMap id="apis_authResultMap" class="com.baddel.datalayer.model.ApisAuth" >
+		<result column="ID" property="id"/> <result column="auth_key" property="authKey"/> <result column="auth_value" property="authValue"/> 
+	</resultMap>    
+    <cacheModel  id="apis_authCache" type="OSCACHE" >
+		<flushInterval  hours="24"/>
+		<flushOnExecute statement="apis_auth_insertSelective"/>
+		<flushOnExecute statement="apis_auth_updateByPrimaryKeySelective"/>
+		<flushOnExecute statement="apis_auth_deleteByid"/> <flushOnExecute statement="apis_auth_deleteByauthKey"/> <flushOnExecute statement="apis_auth_deleteByauthValue"/> 
+		<property name="reference-type" value="SOFT"/>        
+    </cacheModel>
+
+	<select id="apis_auth_selectByid" resultMap="apis_authResultMap" cacheModel="apis_authCache"> select * from `baddel`.`apis_auth` where `baddel`.`apis_auth`.`ID` = #value# </select> <select id="apis_auth_selectByauthKey" resultMap="apis_authResultMap" cacheModel="apis_authCache"> select * from `baddel`.`apis_auth` where `baddel`.`apis_auth`.`auth_key` like #value# </select> <select id="apis_auth_selectByauthValue" resultMap="apis_authResultMap" cacheModel="apis_authCache"> select * from `baddel`.`apis_auth` where `baddel`.`apis_auth`.`auth_value` like #value# </select> 
+	<select id="apis_auth_max" resultClass="java.lang.Integer" > 
+		select max(`ID`) as maxid from `baddel`.`apis_auth`; 
+	</select>
+	<select id="apis_auth_count" resultClass="java.lang.Integer" > 
+		select count(*) from `baddel`.`apis_auth`; 
+	</select>
+	<select id="apis_auth_selectAll" resultMap="apis_authResultMap" cacheModel="apis_authCache" > 
+		select * from `baddel`.`apis_auth` ; 
+	</select>
+
+	<select id="apis_auth_search" resultMap="apis_authResultMap" cacheModel="apis_authCache"> 
+	select * from `baddel`.`apis_auth` where $value$ 
+	</select>
+
+	<delete id="apis_auth_deleteByid" > delete  from baddel.apis_auth where `baddel`.`apis_auth`.`ID` = #value# </delete> <delete id="apis_auth_deleteByauthKey" > delete  from baddel.apis_auth where `baddel`.`apis_auth`.`auth_key` like #value# </delete> <delete id="apis_auth_deleteByauthValue" > delete  from baddel.apis_auth where `baddel`.`apis_auth`.`auth_value` like #value# </delete> 
+	<insert id="apis_auth_insertSelective" parameterClass="com.baddel.datalayer.model.ApisAuth" >
+		insert into `baddel`.`apis_auth` 
+		<dynamic prepend="(" > 
+			 <isNotNull prepend="," property="authKey" > `auth_key` </isNotNull> <isNotNull prepend="," property="authValue" > `auth_value` </isNotNull>  )
+		</dynamic>
+		values 
+		<dynamic prepend="(" > 
+			 <isNotNull prepend="," property="authKey" > #authKey# </isNotNull> <isNotNull prepend="," property="authValue" > #authValue# </isNotNull>  ) 
+		</dynamic> 
+		<selectKey resultClass="java.lang.Integer" keyProperty="id"> 
+		select last_insert_id() as ID
+		</selectKey> 
+	</insert>
+	<update id="apis_auth_updateByPrimaryKeySelective" parameterClass="com.baddel.datalayer.model.ApisAuth" > 
+		update `baddel`.`apis_auth`
+		<dynamic prepend="set" > 
+			  <isNotNull prepend="," property="authKey" > `auth_key` = #authKey# </isNotNull> <isNotNull prepend="," property="authValue" > `auth_value` = #authValue# </isNotNull>  
+		</dynamic> 
+		where `baddel`.`apis_auth`.`ID` = #id# 
+		</update> 
+</sqlMap>

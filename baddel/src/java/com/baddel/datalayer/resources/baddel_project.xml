@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="baddel_project" >
+	<resultMap id="baddel_projectResultMap" class="com.baddel.datalayer.model.BaddelProject" >
+		<result column="id" property="id"/> <result column="name" property="name"/> 
+	</resultMap>    
+    <cacheModel  id="baddel_projectCache" type="OSCACHE" >
+		<flushInterval  hours="24"/>
+		<flushOnExecute statement="baddel_project_insertSelective"/>
+		<flushOnExecute statement="baddel_project_updateByPrimaryKeySelective"/>
+		<flushOnExecute statement="baddel_project_deleteByid"/> <flushOnExecute statement="baddel_project_deleteByname"/> 
+		<property name="reference-type" value="SOFT"/>        
+    </cacheModel>
+
+	<select id="baddel_project_selectByid" resultMap="baddel_projectResultMap" cacheModel="baddel_projectCache"> select * from `baddel`.`baddel_project` where `baddel`.`baddel_project`.`id` = #value# </select> <select id="baddel_project_selectByname" resultMap="baddel_projectResultMap" cacheModel="baddel_projectCache"> select * from `baddel`.`baddel_project` where `baddel`.`baddel_project`.`name` like #value# </select> 
+	<select id="baddel_project_max" resultClass="java.lang.Integer" > 
+		select max(`id`) as maxid from `baddel`.`baddel_project`; 
+	</select>
+	<select id="baddel_project_count" resultClass="java.lang.Integer" > 
+		select count(*) from `baddel`.`baddel_project`; 
+	</select>
+	<select id="baddel_project_selectAll" resultMap="baddel_projectResultMap" cacheModel="baddel_projectCache" > 
+		select * from `baddel`.`baddel_project` ; 
+	</select>
+
+	<select id="baddel_project_search" resultMap="baddel_projectResultMap" cacheModel="baddel_projectCache"> 
+	select * from `baddel`.`baddel_project` where $value$ 
+	</select>
+
+	<delete id="baddel_project_deleteByid" > delete  from baddel.baddel_project where `baddel`.`baddel_project`.`id` = #value# </delete> <delete id="baddel_project_deleteByname" > delete  from baddel.baddel_project where `baddel`.`baddel_project`.`name` like #value# </delete> 
+	<insert id="baddel_project_insertSelective" parameterClass="com.baddel.datalayer.model.BaddelProject" >
+		insert into `baddel`.`baddel_project` 
+		<dynamic prepend="(" > 
+			 <isNotNull prepend="," property="name" > `name` </isNotNull>  )
+		</dynamic>
+		values 
+		<dynamic prepend="(" > 
+			 <isNotNull prepend="," property="name" > #name# </isNotNull>  ) 
+		</dynamic> 
+		<selectKey resultClass="java.lang.Integer" keyProperty="id"> 
+		select last_insert_id() as id
+		</selectKey> 
+	</insert>
+	<update id="baddel_project_updateByPrimaryKeySelective" parameterClass="com.baddel.datalayer.model.BaddelProject" > 
+		update `baddel`.`baddel_project`
+		<dynamic prepend="set" > 
+			  <isNotNull prepend="," property="name" > `name` = #name# </isNotNull>  
+		</dynamic> 
+		where `baddel`.`baddel_project`.`id` = #id# 
+		</update> 
+</sqlMap>

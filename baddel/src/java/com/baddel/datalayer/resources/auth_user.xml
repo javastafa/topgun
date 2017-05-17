@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="auth_user" >
+	<resultMap id="auth_userResultMap" class="com.baddel.datalayer.model.AuthUser" >
+		<result column="ID" property="id"/> <result column="userName" property="username"/> <result column="password" property="password"/> <result column="firstName" property="firstname"/> <result column="seconName" property="seconname"/> <result column="email" property="email"/> <result column="Created" property="created"/> <result column="createdBy" property="createdby"/> <result column="updated" property="updated"/> <result column="securityLevel" property="securitylevel"/> 
+	</resultMap>    
+    <cacheModel  id="auth_userCache" type="OSCACHE" >
+		<flushInterval  hours="24"/>
+		<flushOnExecute statement="auth_user_insertSelective"/>
+		<flushOnExecute statement="auth_user_updateByPrimaryKeySelective"/>
+		<flushOnExecute statement="auth_user_deleteByid"/> <flushOnExecute statement="auth_user_deleteByusername"/> <flushOnExecute statement="auth_user_deleteBypassword"/> <flushOnExecute statement="auth_user_deleteByfirstname"/> <flushOnExecute statement="auth_user_deleteByseconname"/> <flushOnExecute statement="auth_user_deleteByemail"/> <flushOnExecute statement="auth_user_deleteBycreated"/> <flushOnExecute statement="auth_user_deleteBycreatedby"/> <flushOnExecute statement="auth_user_deleteByupdated"/> <flushOnExecute statement="auth_user_deleteBysecuritylevel"/> 
+		<property name="reference-type" value="SOFT"/>        
+    </cacheModel>
+
+	<select id="auth_user_selectByid" resultMap="auth_userResultMap" cacheModel="auth_userCache"> select * from `baddel`.`auth_user` where `baddel`.`auth_user`.`ID` = #value# </select> <select id="auth_user_selectByusername" resultMap="auth_userResultMap" cacheModel="auth_userCache"> select * from `baddel`.`auth_user` where `baddel`.`auth_user`.`userName` like #value# </select> <select id="auth_user_selectBypassword" resultMap="auth_userResultMap" cacheModel="auth_userCache"> select * from `baddel`.`auth_user` where `baddel`.`auth_user`.`password` like #value# </select> <select id="auth_user_selectByfirstname" resultMap="auth_userResultMap" cacheModel="auth_userCache"> select * from `baddel`.`auth_user` where `baddel`.`auth_user`.`firstName` like #value# </select> <select id="auth_user_selectByseconname" resultMap="auth_userResultMap" cacheModel="auth_userCache"> select * from `baddel`.`auth_user` where `baddel`.`auth_user`.`seconName` like #value# </select> <select id="auth_user_selectByemail" resultMap="auth_userResultMap" cacheModel="auth_userCache"> select * from `baddel`.`auth_user` where `baddel`.`auth_user`.`email` like #value# </select> <select id="auth_user_selectBycreated" resultMap="auth_userResultMap" cacheModel="auth_userCache"> select * from `baddel`.`auth_user` where `baddel`.`auth_user`.`Created` = #value# </select> <select id="auth_user_selectBycreatedby" resultMap="auth_userResultMap" cacheModel="auth_userCache"> select * from `baddel`.`auth_user` where `baddel`.`auth_user`.`createdBy` = #value# </select> <select id="auth_user_selectByupdated" resultMap="auth_userResultMap" cacheModel="auth_userCache"> select * from `baddel`.`auth_user` where `baddel`.`auth_user`.`updated` = #value# </select> <select id="auth_user_selectBysecuritylevel" resultMap="auth_userResultMap" cacheModel="auth_userCache"> select * from `baddel`.`auth_user` where `baddel`.`auth_user`.`securityLevel` = #value# </select> 
+	<select id="auth_user_max" resultClass="java.lang.Integer" > 
+		select max(`ID`) as maxid from `baddel`.`auth_user`; 
+	</select>
+	<select id="auth_user_count" resultClass="java.lang.Integer" > 
+		select count(*) from `baddel`.`auth_user`; 
+	</select>
+	<select id="auth_user_selectAll" resultMap="auth_userResultMap" cacheModel="auth_userCache" > 
+		select * from `baddel`.`auth_user` ; 
+	</select>
+
+	<select id="auth_user_search" resultMap="auth_userResultMap" cacheModel="auth_userCache"> 
+	select * from `baddel`.`auth_user` where $value$ 
+	</select>
+
+	<delete id="auth_user_deleteByid" > delete  from baddel.auth_user where `baddel`.`auth_user`.`ID` = #value# </delete> <delete id="auth_user_deleteByusername" > delete  from baddel.auth_user where `baddel`.`auth_user`.`userName` like #value# </delete> <delete id="auth_user_deleteBypassword" > delete  from baddel.auth_user where `baddel`.`auth_user`.`password` like #value# </delete> <delete id="auth_user_deleteByfirstname" > delete  from baddel.auth_user where `baddel`.`auth_user`.`firstName` like #value# </delete> <delete id="auth_user_deleteByseconname" > delete  from baddel.auth_user where `baddel`.`auth_user`.`seconName` like #value# </delete> <delete id="auth_user_deleteByemail" > delete  from baddel.auth_user where `baddel`.`auth_user`.`email` like #value# </delete> <delete id="auth_user_deleteBycreated" > delete  from baddel.auth_user where `baddel`.`auth_user`.`Created` = #value# </delete> <delete id="auth_user_deleteBycreatedby" > delete  from baddel.auth_user where `baddel`.`auth_user`.`createdBy` = #value# </delete> <delete id="auth_user_deleteByupdated" > delete  from baddel.auth_user where `baddel`.`auth_user`.`updated` = #value# </delete> <delete id="auth_user_deleteBysecuritylevel" > delete  from baddel.auth_user where `baddel`.`auth_user`.`securityLevel` = #value# </delete> 
+	<insert id="auth_user_insertSelective" parameterClass="com.baddel.datalayer.model.AuthUser" >
+		insert into `baddel`.`auth_user` 
+		<dynamic prepend="(" > 
+			 <isNotNull prepend="," property="username" > `userName` </isNotNull> <isNotNull prepend="," property="password" > `password` </isNotNull> <isNotNull prepend="," property="firstname" > `firstName` </isNotNull> <isNotNull prepend="," property="seconname" > `seconName` </isNotNull> <isNotNull prepend="," property="email" > `email` </isNotNull> <isNotNull prepend="," property="created" > `Created` </isNotNull> <isNotNull prepend="," property="createdby" > `createdBy` </isNotNull> <isNotNull prepend="," property="updated" > `updated` </isNotNull> <isNotNull prepend="," property="securitylevel" > `securityLevel` </isNotNull>  )
+		</dynamic>
+		values 
+		<dynamic prepend="(" > 
+			 <isNotNull prepend="," property="username" > #username# </isNotNull> <isNotNull prepend="," property="password" > #password# </isNotNull> <isNotNull prepend="," property="firstname" > #firstname# </isNotNull> <isNotNull prepend="," property="seconname" > #seconname# </isNotNull> <isNotNull prepend="," property="email" > #email# </isNotNull> <isNotNull prepend="," property="created" > #created# </isNotNull> <isNotNull prepend="," property="createdby" > #createdby# </isNotNull> <isNotNull prepend="," property="updated" > #updated# </isNotNull> <isNotNull prepend="," property="securitylevel" > #securitylevel# </isNotNull>  ) 
+		</dynamic> 
+		<selectKey resultClass="java.lang.Integer" keyProperty="id"> 
+		select last_insert_id() as ID
+		</selectKey> 
+	</insert>
+	<update id="auth_user_updateByPrimaryKeySelective" parameterClass="com.baddel.datalayer.model.AuthUser" > 
+		update `baddel`.`auth_user`
+		<dynamic prepend="set" > 
+			  <isNotNull prepend="," property="username" > `userName` = #username# </isNotNull> <isNotNull prepend="," property="password" > `password` = #password# </isNotNull> <isNotNull prepend="," property="firstname" > `firstName` = #firstname# </isNotNull> <isNotNull prepend="," property="seconname" > `seconName` = #seconname# </isNotNull> <isNotNull prepend="," property="email" > `email` = #email# </isNotNull> <isNotNull prepend="," property="created" > `Created` = #created# </isNotNull> <isNotNull prepend="," property="createdby" > `createdBy` = #createdby# </isNotNull> <isNotNull prepend="," property="updated" > `updated` = #updated# </isNotNull> <isNotNull prepend="," property="securitylevel" > `securityLevel` = #securitylevel# </isNotNull>  
+		</dynamic> 
+		where `baddel`.`auth_user`.`ID` = #id# 
+		</update> 
+</sqlMap>

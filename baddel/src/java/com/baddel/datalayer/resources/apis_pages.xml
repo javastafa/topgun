@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="apis_pages" >
+	<resultMap id="apis_pagesResultMap" class="com.baddel.datalayer.model.ApisPages" >
+		<result column="ID" property="id"/> <result column="apiName" property="apiname"/> <result column="apiDescription" property="apidescription"/> <result column="apiUrl" property="apiurl"/> <result column="isSecure" property="issecure"/> 
+	</resultMap>    
+    <cacheModel  id="apis_pagesCache" type="OSCACHE" >
+		<flushInterval  hours="24"/>
+		<flushOnExecute statement="apis_pages_insertSelective"/>
+		<flushOnExecute statement="apis_pages_updateByPrimaryKeySelective"/>
+		<flushOnExecute statement="apis_pages_deleteByid"/> <flushOnExecute statement="apis_pages_deleteByapiname"/> <flushOnExecute statement="apis_pages_deleteByapidescription"/> <flushOnExecute statement="apis_pages_deleteByapiurl"/> <flushOnExecute statement="apis_pages_deleteByissecure"/> 
+		<property name="reference-type" value="SOFT"/>        
+    </cacheModel>
+
+	<select id="apis_pages_selectByid" resultMap="apis_pagesResultMap" cacheModel="apis_pagesCache"> select * from `baddel`.`apis_pages` where `baddel`.`apis_pages`.`ID` = #value# </select> <select id="apis_pages_selectByapiname" resultMap="apis_pagesResultMap" cacheModel="apis_pagesCache"> select * from `baddel`.`apis_pages` where `baddel`.`apis_pages`.`apiName` like #value# </select> <select id="apis_pages_selectByapidescription" resultMap="apis_pagesResultMap" cacheModel="apis_pagesCache"> select * from `baddel`.`apis_pages` where `baddel`.`apis_pages`.`apiDescription` like #value# </select> <select id="apis_pages_selectByapiurl" resultMap="apis_pagesResultMap" cacheModel="apis_pagesCache"> select * from `baddel`.`apis_pages` where `baddel`.`apis_pages`.`apiUrl` like #value# </select> <select id="apis_pages_selectByissecure" resultMap="apis_pagesResultMap" cacheModel="apis_pagesCache"> select * from `baddel`.`apis_pages` where `baddel`.`apis_pages`.`isSecure` = #value# </select> 
+	<select id="apis_pages_max" resultClass="java.lang.Integer" > 
+		select max(`ID`) as maxid from `baddel`.`apis_pages`; 
+	</select>
+	<select id="apis_pages_count" resultClass="java.lang.Integer" > 
+		select count(*) from `baddel`.`apis_pages`; 
+	</select>
+	<select id="apis_pages_selectAll" resultMap="apis_pagesResultMap" cacheModel="apis_pagesCache" > 
+		select * from `baddel`.`apis_pages` ; 
+	</select>
+
+	<select id="apis_pages_search" resultMap="apis_pagesResultMap" cacheModel="apis_pagesCache"> 
+	select * from `baddel`.`apis_pages` where $value$ 
+	</select>
+
+	<delete id="apis_pages_deleteByid" > delete  from baddel.apis_pages where `baddel`.`apis_pages`.`ID` = #value# </delete> <delete id="apis_pages_deleteByapiname" > delete  from baddel.apis_pages where `baddel`.`apis_pages`.`apiName` like #value# </delete> <delete id="apis_pages_deleteByapidescription" > delete  from baddel.apis_pages where `baddel`.`apis_pages`.`apiDescription` like #value# </delete> <delete id="apis_pages_deleteByapiurl" > delete  from baddel.apis_pages where `baddel`.`apis_pages`.`apiUrl` like #value# </delete> <delete id="apis_pages_deleteByissecure" > delete  from baddel.apis_pages where `baddel`.`apis_pages`.`isSecure` = #value# </delete> 
+	<insert id="apis_pages_insertSelective" parameterClass="com.baddel.datalayer.model.ApisPages" >
+		insert into `baddel`.`apis_pages` 
+		<dynamic prepend="(" > 
+			 <isNotNull prepend="," property="apiname" > `apiName` </isNotNull> <isNotNull prepend="," property="apidescription" > `apiDescription` </isNotNull> <isNotNull prepend="," property="apiurl" > `apiUrl` </isNotNull> <isNotNull prepend="," property="issecure" > `isSecure` </isNotNull>  )
+		</dynamic>
+		values 
+		<dynamic prepend="(" > 
+			 <isNotNull prepend="," property="apiname" > #apiname# </isNotNull> <isNotNull prepend="," property="apidescription" > #apidescription# </isNotNull> <isNotNull prepend="," property="apiurl" > #apiurl# </isNotNull> <isNotNull prepend="," property="issecure" > #issecure# </isNotNull>  ) 
+		</dynamic> 
+		<selectKey resultClass="java.lang.Integer" keyProperty="id"> 
+		select last_insert_id() as ID
+		</selectKey> 
+	</insert>
+	<update id="apis_pages_updateByPrimaryKeySelective" parameterClass="com.baddel.datalayer.model.ApisPages" > 
+		update `baddel`.`apis_pages`
+		<dynamic prepend="set" > 
+			  <isNotNull prepend="," property="apiname" > `apiName` = #apiname# </isNotNull> <isNotNull prepend="," property="apidescription" > `apiDescription` = #apidescription# </isNotNull> <isNotNull prepend="," property="apiurl" > `apiUrl` = #apiurl# </isNotNull> <isNotNull prepend="," property="issecure" > `isSecure` = #issecure# </isNotNull>  
+		</dynamic> 
+		where `baddel`.`apis_pages`.`ID` = #id# 
+		</update> 
+</sqlMap>

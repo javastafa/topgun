@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="baddel_countries_categories" >
+	<resultMap id="baddel_countries_categoriesResultMap" class="com.baddel.datalayer.model.BaddelCountriesCategories" >
+		<result column="id" property="id"/> <result column="countryID" property="countryid"/> <result column="categoryID" property="categoryid"/> 
+	</resultMap>    
+    <cacheModel  id="baddel_countries_categoriesCache" type="OSCACHE" >
+		<flushInterval  hours="24"/>
+		<flushOnExecute statement="baddel_countries_categories_insertSelective"/>
+		<flushOnExecute statement="baddel_countries_categories_updateByPrimaryKeySelective"/>
+		<flushOnExecute statement="baddel_countries_categories_deleteByid"/> <flushOnExecute statement="baddel_countries_categories_deleteBycountryid"/> <flushOnExecute statement="baddel_countries_categories_deleteBycategoryid"/> 
+		<property name="reference-type" value="SOFT"/>        
+    </cacheModel>
+
+	<select id="baddel_countries_categories_selectByid" resultMap="baddel_countries_categoriesResultMap" cacheModel="baddel_countries_categoriesCache"> select * from `baddel`.`baddel_countries_categories` where `baddel`.`baddel_countries_categories`.`id` = #value# </select> <select id="baddel_countries_categories_selectBycountryid" resultMap="baddel_countries_categoriesResultMap" cacheModel="baddel_countries_categoriesCache"> select * from `baddel`.`baddel_countries_categories` where `baddel`.`baddel_countries_categories`.`countryID` = #value# </select> <select id="baddel_countries_categories_selectBycategoryid" resultMap="baddel_countries_categoriesResultMap" cacheModel="baddel_countries_categoriesCache"> select * from `baddel`.`baddel_countries_categories` where `baddel`.`baddel_countries_categories`.`categoryID` = #value# </select> 
+	<select id="baddel_countries_categories_max" resultClass="java.lang.Integer" > 
+		select max(`id`) as maxid from `baddel`.`baddel_countries_categories`; 
+	</select>
+	<select id="baddel_countries_categories_count" resultClass="java.lang.Integer" > 
+		select count(*) from `baddel`.`baddel_countries_categories`; 
+	</select>
+	<select id="baddel_countries_categories_selectAll" resultMap="baddel_countries_categoriesResultMap" cacheModel="baddel_countries_categoriesCache" > 
+		select * from `baddel`.`baddel_countries_categories` ; 
+	</select>
+
+	<select id="baddel_countries_categories_search" resultMap="baddel_countries_categoriesResultMap" cacheModel="baddel_countries_categoriesCache"> 
+	select * from `baddel`.`baddel_countries_categories` where $value$ 
+	</select>
+
+	<delete id="baddel_countries_categories_deleteByid" > delete  from baddel.baddel_countries_categories where `baddel`.`baddel_countries_categories`.`id` = #value# </delete> <delete id="baddel_countries_categories_deleteBycountryid" > delete  from baddel.baddel_countries_categories where `baddel`.`baddel_countries_categories`.`countryID` = #value# </delete> <delete id="baddel_countries_categories_deleteBycategoryid" > delete  from baddel.baddel_countries_categories where `baddel`.`baddel_countries_categories`.`categoryID` = #value# </delete> 
+	<insert id="baddel_countries_categories_insertSelective" parameterClass="com.baddel.datalayer.model.BaddelCountriesCategories" >
+		insert into `baddel`.`baddel_countries_categories` 
+		<dynamic prepend="(" > 
+			 <isNotNull prepend="," property="countryid" > `countryID` </isNotNull> <isNotNull prepend="," property="categoryid" > `categoryID` </isNotNull>  )
+		</dynamic>
+		values 
+		<dynamic prepend="(" > 
+			 <isNotNull prepend="," property="countryid" > #countryid# </isNotNull> <isNotNull prepend="," property="categoryid" > #categoryid# </isNotNull>  ) 
+		</dynamic> 
+		<selectKey resultClass="java.lang.Integer" keyProperty="id"> 
+		select last_insert_id() as id
+		</selectKey> 
+	</insert>
+	<update id="baddel_countries_categories_updateByPrimaryKeySelective" parameterClass="com.baddel.datalayer.model.BaddelCountriesCategories" > 
+		update `baddel`.`baddel_countries_categories`
+		<dynamic prepend="set" > 
+			  <isNotNull prepend="," property="countryid" > `countryID` = #countryid# </isNotNull> <isNotNull prepend="," property="categoryid" > `categoryID` = #categoryid# </isNotNull>  
+		</dynamic> 
+		where `baddel`.`baddel_countries_categories`.`id` = #id# 
+		</update> 
+</sqlMap>
